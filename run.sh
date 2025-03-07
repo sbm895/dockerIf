@@ -25,15 +25,15 @@ case "$extension" in
         run_cmd="python $file_name"
         ;;
     java)
-        lang="java"
+        lang="openjdk"
         run_cmd="javac $file_name && java ${file_name%.java}"
         ;;
     cpp|cc)
-        lang="cpp"
+        lang="gcc"
         run_cmd="g++ $file_name -o program && ./program"
         ;;
     js)
-        lang="javascript"
+        lang="node"
         run_cmd="node $file_name"
         ;;
     rb)
@@ -45,12 +45,6 @@ case "$extension" in
         exit 1
         ;;
 esac
-
-# Construir la imagen si no existe
-if [[ "$(docker images -q ${lang}_image 2> /dev/null)" == "" ]]; then
-    echo "Construyendo la imagen para $lang..."
-    docker build -t ${lang}_image "$lang/"
-fi
 
 # Ejecutar el código en el contenedor y medir el tiempo
 echo "Ejecutando en contenedor Docker..."
