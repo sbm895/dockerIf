@@ -48,5 +48,5 @@ esac
 
 # Ejecutar el código en el contenedor y medir el tiempo
 echo "Ejecutando en contenedor Docker..."
-docker run --rm -v "$BASE_DIR/src":/app -w /app ${lang}_image bash -c "$run_cmd"
+docker run --rm -v "$BASE_DIR/src":/app -w /app ${lang} bash -c "$run_cmd"
 
