@@ -53,6 +53,6 @@ public class main {
         for (int i = 0; i < array.length; i++) {
             System.out.println(array[i]);
         }
-        System.out.println("End of Java execution")
+        System.out.println("End of Java execution");
     }
 }
