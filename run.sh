@@ -4,7 +4,7 @@
 read -p "Ingrese el nombre del archivo con su ruta: " file_path
 
 # Verificar si el archivo existe
-if [[ ! -f "$file_path" ]]; then
+if [[ ! -f "src/$file_path" ]]; then
     echo "Error: El archivo no existe."
     exit 1
 fi
