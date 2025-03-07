@@ -4,7 +4,7 @@
 BASE_DIR=$(pwd)
 
 # Solicitar el nombre del archivo sin ruta
-read -p "Ingrese el nombre del archivo (sin ruta, solo nombre.ext): " file_name
+read -p "Ingrese el nombre del archivo (sin ruta, solo main.ext): " file_name
 
 # Ruta del archivo dentro de src/
 file_path="src/$file_name"
