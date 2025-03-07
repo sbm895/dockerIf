@@ -36,4 +36,4 @@ fi
 
 # Ejecutar el código en el contenedor y medir el tiempo
 echo "Ejecutando en contenedor Docker..."
-time docker run --rm -v "$BASE_DIR/src":/usr/src/app -w /usr/src/app ${lang}_image bash -c "./run.sh $file_name"
+time docker run --rm -v "$BASE_DIR/src":/app -w /app ${lang}_image $file_name"
