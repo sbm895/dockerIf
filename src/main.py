@@ -28,6 +28,5 @@ start = t.time()
 selection_sort(array)
 end = t.time()
 print('Python runtime = ', (end-start)*1000,' ms')
-
-with open('pysol.txt', 'w') as file:
-    file.write(str(array))
+print(array)
+print("End of Python Execution")

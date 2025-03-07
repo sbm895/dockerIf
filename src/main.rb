@@ -40,8 +40,7 @@ def selection_sort(arr)
   # Calculate and print the runtime
   puts "Ruby runtime = #{(end_time - start) * 1000} ms"
   
-  # Write the sorted array to a file
-  File.open('rubysol.txt', 'w') do |file|
-    file.write(array.join(', '))
-  end
+  p array
+
+  puts "End of Ruby Execution"
   

@@ -49,13 +49,10 @@ public class main {
         // Print the runtime
         System.out.printf("Java Runtime: %.6f ms\n", runtime*1000);
 
-        // Write the sorted array to a file
-        try (FileWriter writer = new FileWriter("jvsol.txt")) {
-            for (int i = 0; i < array.length; i++) {
-                writer.write(array[i] + (i < array.length - 1 ? ", " : ""));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        
+        for (int i = 0; i < array.length; i++) {
+            System.out.println(array[i]);
         }
+        System.out.println("End of Java execution")
     }
 }

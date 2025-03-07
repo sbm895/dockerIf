@@ -43,4 +43,5 @@ console.log(`JavaScript Runtime: ${runtime.toFixed(6)} ms`);
 
 // Write the sorted array to a file (Node.js environment)
 const fs = require('fs');
-fs.writeFileSync('jvscsol.txt', array.join(', '));
+console.log(array)
+console.log("End of Javascript execution")

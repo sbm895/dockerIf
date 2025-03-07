@@ -50,16 +50,12 @@ int main() {
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
     std::cout << "C++ runtime = " << duration.count() << " ms" << std::endl;
 
-    // Write the sorted array to a file
-    std::ofstream file("cppsol.txt");
-    if (file.is_open()) {
-        for (int i = 0; i < size; i++) {
-            file << array[i] << " ";
-        }
-        file.close();
-    } else {
-        std::cout << "Unable to open file";
+    cout << "Sorted array elements: ";
+    for (int n : array) {
+        cout << n << " ";
     }
 
+    cout<<"End of C++ execution";
+    cout << endl;
     return 0;
 }
