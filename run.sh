@@ -22,7 +22,7 @@ extension="${file_name##*.}"
 case "$extension" in
     py)   lang="python" ;;
     java) lang="java" ;;
-    cpp|cc) lang="c++" ;;
+    cpp|cc) lang="cpp" ;;
     js)   lang="javascript" ;;
     rb)   lang="ruby" ;;
     *)    echo "Error: Extensión no soportada."; exit 1 ;;
