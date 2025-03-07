@@ -50,12 +50,12 @@ int main() {
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
     std::cout << "C++ runtime = " << duration.count() << " ms" << std::endl;
 
-    cout << "Sorted array elements: ";
+    std::cout << "Sorted array elements: ";
     for (int n : array) {
-        cout << n << " ";
+        std::cout << n << " ";
     }
 
-    cout<<"End of C++ execution";
-    cout << endl;
+    std::cout<<"End of C++ execution";
+    std::cout << std::endl;
     return 0;
 }
