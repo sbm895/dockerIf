@@ -1,27 +1,39 @@
 #!/bin/bash
 
-# Solicitar el nombre del archivo
-read -p "Ingrese el nombre del archivo con su ruta: " file_path
+# Definir directorio base
+BASE_DIR=$(pwd)
+
+# Solicitar el nombre del archivo sin ruta
+read -p "Ingrese el nombre del archivo (sin ruta, solo nombre.ext): " file_name
+
+# Ruta del archivo dentro de src/
+file_path="src/$file_name"
 
 # Verificar si el archivo existe
-if [[ ! -f "src/$file_path" ]]; then
-    echo "Error: El archivo no existe."
+if [[ ! -f "$file_path" ]]; then
+    echo "Error: El archivo no existe en la carpeta src/"
     exit 1
 fi
 
 # Obtener la extensión del archivo
-extension="${file_path##*.}"
+extension="${file_name##*.}"
 
-# Determinar la imagen de Docker según el lenguaje
+# Determinar el contenedor según la extensión
 case "$extension" in
-    py)  image="python:3"      cmd="python3"    ;;
-    java) image="openjdk:latest" cmd="javac"      ;;
-    cpp|cc) image="gcc:latest" cmd="g++ -o output && ./output" ;;
-    js)  image="node:latest"   cmd="node"       ;;
-    rb)  image="ruby:latest"   cmd="ruby"       ;;
-    *)   echo "Error: Extensión no soportada."; exit 1 ;;
+    py)   lang="python" ;;
+    java) lang="java" ;;
+    cpp|cc) lang="c++" ;;
+    js)   lang="javascript" ;;
+    rb)   lang="ruby" ;;
+    *)    echo "Error: Extensión no soportada."; exit 1 ;;
 esac
+
+# Construir la imagen si no existe
+if [[ "$(docker images -q ${lang}_image 2> /dev/null)" == "" ]]; then
+    echo "Construyendo la imagen para $lang..."
+    docker build -t ${lang}_image "$lang/"
+fi
 
 # Ejecutar el código en el contenedor y medir el tiempo
 echo "Ejecutando en contenedor Docker..."
-time docker run --rm -v "$PWD":/usr/src/app -w /usr/src/app "$image" bash -c "$cmd $file_path"
+time docker run --rm -v "$BASE_DIR/src":/usr/src/app -w /usr/src/app ${lang}_image bash -c "./run.sh $file_name"
