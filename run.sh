@@ -18,14 +18,32 @@ fi
 # Obtener la extensión del archivo
 extension="${file_name##*.}"
 
-# Determinar el contenedor según la extensión
+# Determinar el contenedor y el comando a ejecutar según la extensión
 case "$extension" in
-    py)   lang="python" ;;
-    java) lang="java" ;;
-    cpp|cc) lang="cpp" ;;
-    js)   lang="javascript" ;;
-    rb)   lang="ruby" ;;
-    *)    echo "Error: Extensión no soportada."; exit 1 ;;
+    py) 
+        lang="python"
+        run_cmd="python $file_name"
+        ;;
+    java)
+        lang="java"
+        run_cmd="javac $file_name && java ${file_name%.java}"
+        ;;
+    cpp|cc)
+        lang="cpp"
+        run_cmd="g++ $file_name -o program && ./program"
+        ;;
+    js)
+        lang="javascript"
+        run_cmd="node $file_name"
+        ;;
+    rb)
+        lang="ruby"
+        run_cmd="ruby $file_name"
+        ;;
+    *)
+        echo "Error: Extensión no soportada."
+        exit 1
+        ;;
 esac
 
 # Construir la imagen si no existe
@@ -33,6 +51,10 @@ if [[ "$(docker images -q ${lang}_image 2> /dev/null)" == "" ]]; then
     echo "Construyendo la imagen para $lang..."
     docker build -t ${lang}_image "$lang/"
 fi
+
+# Ejecutar el código en el contenedor y medir el tiempo
+echo "Ejecutando en contenedor Docker..."
+time docker run --rm -v "$BASE_DIR/src":/app -w /app ${lang}_image bash -c "$run_cmd"
 
 # Ejecutar el código en el contenedor y medir el tiempo
 echo "Ejecutando en contenedor Docker..."
